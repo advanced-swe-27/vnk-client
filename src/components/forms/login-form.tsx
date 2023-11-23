@@ -26,33 +26,34 @@ const formSchema = z.object({
     password: z.string().min(8, "Password should be more than 7 characters")
 })
 
-export default function ForgotPasswordForm() {
+export default function LoginForm() {
 
+    const [viewPassword, setViewPassword] = useState(false)
 
+    const toggleViewPassword = () => {
+        setViewPassword((prev) => !prev)
+    }
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             email: "",
+            password: ""
         },
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         const toastSubmitId = toast.success("Logging in")
 
-        
+
 
     }
-    return(
+    return (
         <Form   {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="px-8 py-8 max-w-lg w-full space-y-5 bg-white shadow-md rounded-lg md:p-8">
                 <div className="flex flex-col gap-2 text-sm text-center">
-                    <h1 className="text-3xl text-left font-bold">Forgot Password?</h1>
+                    <h1 className="text-3xl text-left font-bold">Login</h1>
 
-                  
-                </div>
-                <div>
-                    <p className="text-gray text-[12px] font-medium ">Enter your email and we will send you are link to reset your password</p>
                 </div>
                 <FormField
                     control={form.control}
@@ -66,20 +67,38 @@ export default function ForgotPasswordForm() {
                         </FormItem>
                     )}
                 />
-                
+                <FormField
+                    control={form.control}
+                    name="password"
+                    disabled={false}
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormControl>
+                                <div className="flex relative ">
+                                    <Input type={viewPassword ? "text" : "password"} className="text-black outline-0 focus:ring-0 focus-visible:ring-offset-0  " placeholder="Password" {...field} />
+                                    <button onClick={toggleViewPassword} type="button" className="absolute right-0 rounded-lg  bg-neutral-200 flex items-center justify-center h-full aspect-square ">
+                                        {
+                                            viewPassword ? <BsEyeSlash /> : <BsEye />
+                                        }
+                                    </button>
+                                </div>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <div>
+                    <Link href="/forgot-password"><p className="text-neonblue ">Forgot Password?</p></Link>
+                </div>
 
                 <Button disabled={false} className=" w-full bg-primaryy" type="submit">
                     {false && <Loader2 className="animate-spin h-4 w-4 mr-4" />}
                     Submit
                 </Button>
-            
-            <Link href="login">
-                <Button variant={"secondary"} disabled={false} className=" w-full bg-[#EEEEEE] text-black font-medium mt-5"  type="button">
-                    {false && <Loader2 className="animate-spin h-4 w-4 mr-4" />}
-                    Back to Login
-                </Button>
 
-                </Link>
+                
+
             </form>
         </Form>
     )

@@ -17,7 +17,7 @@ export default function ForgotPasswordPage() {
         />
         </div>
       
-      <div className='max-w-lg w-full'>
+      <div className='max-w-lg w-full mx-5 my-5'>
       <ForgotPasswordForm />
       </div>
     </main>
