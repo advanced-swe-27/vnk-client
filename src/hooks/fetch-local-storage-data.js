@@ -9,15 +9,3 @@ export const fetchUser = () => {
 
     return userInfo
 }
-
-export const fetchRole = () => {
-    let userRole = null
-    if (typeof window !== 'undefined') {
-        userRole =
-            localStorage.getItem('role') !== 'undefined'
-                ? JSON.parse(localStorage.getItem('role'))
-                : localStorage.clear()
-    }
-
-    return userRole
-}

@@ -2,51 +2,45 @@
 // Define all the columns for all the tables here
 
 import { DataTableColumnHeader } from "./data-table-column-header"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
+import { UserRes } from "@/types"
 import { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal, ArrowUpDown } from "lucide-react"
-import { BsEye } from "react-icons/bs"
-import { BiSolidEdit, BiTrashAlt } from "react-icons/bi"
-import { DialogTitle } from "../ui/dialog"
 import * as React from "react"
+import ViewUserDialog from "../dialogs/view-user-dialog"
+import DeleteUserDialog from "../dialogs/delete-user-dialog"
 
-const actionsMap = {
-    edit: (
-        <div className="flex items-center gap-2 ">
-            <BiSolidEdit className="text-xl" />
-            Edit
-        </div>
-    ),
-    status: (
-        <div className="flex items-center gap-2 ">
-            <BiSolidEdit className="text-xl" />
-            Change Status
-        </div>
-    ),
-    view: (<div className="flex items-center gap-2 ">
-        <BsEye className="text-xl" />
-        View
-    </div>),
+export const porterColumns: ColumnDef<UserRes>[] = [
+    {
+        accessorKey: "othernames",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Full Name" />
+        ),
+        cell: ({ row }) => (
+            <>
+                {row.original.othernames} {row.original.surname}
+            </>
+        ),
+    },
+    {
+        accessorKey: "email",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Email" />
+        ),
+    },
+    {
+        accessorKey: "phone",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Phone" />
+        ),
+    },
+    {
+        id: "actions",
+        cell: ({ row }) => (
+            <div className="flex items-center gap-4">
+                <ViewUserDialog user={row.original} />
+                <DeleteUserDialog user={row.original} />
 
-    delete: (<div className="flex items-center gap-2 ">
-        <BiTrashAlt className="text-xl" />
-        Delete
-    </div>),
-    block: (<div className="flex items-center gap-2 ">
-        <BiTrashAlt className="text-xl" />
-        Block
-    </div>),
-    unblock: (<div className="flex items-center gap-2 ">
-        <BiTrashAlt className="text-xl" />
-        Unblock
-    </div>),
-
-}
+            </div>
+        ),
+    }
+]

@@ -16,6 +16,10 @@ import { Loader2 } from "lucide-react"
 import { BsEye, BsEyeSlash } from "react-icons/bs"
 import { useState } from "react"
 import Link from "next/link"
+import { LOGIN_USER } from "@/utils/server/auth"
+import { useMutation } from "@tanstack/react-query"
+import { ForgotStoreType, UserRes } from "@/types"
+import { useLocalStorage } from "react-use"
 
 const formSchema = z.object({
     email: z.string().email({
@@ -27,7 +31,8 @@ const formSchema = z.object({
 })
 
 export default function LoginForm() {
-
+    const [localUser, setLocalUser,] = useLocalStorage<UserRes | null>("user", null)
+    const [_forgotStore, setForgotStore] = useLocalStorage<ForgotStoreType>("forgot-store", { username: "", tab: "send-code", token: "" });
     const [viewPassword, setViewPassword] = useState(false)
 
     const toggleViewPassword = () => {
@@ -42,13 +47,49 @@ export default function LoginForm() {
         },
     })
 
+    const loginUser = useMutation({
+        mutationFn: (values: z.infer<typeof formSchema>) => {
+            const info = {
+                email: values.email,
+                password: values.password,
+            }
+
+            return LOGIN_USER(info)
+        }
+    })
+        
+
     function onSubmit(values: z.infer<typeof formSchema>) {
         const toastSubmitId = toast.success("Logging in")
 
+        loginUser.mutate(values, {
+            onSuccess: (data) => {
+                console.log(data);
 
+                toast.success(`Login Successful`, {
+                    id: toastSubmitId
+                })
+
+                setLocalUser(data)
+
+                if (typeof window !== "undefined") {
+                    location.reload()
+                }
+            },
+            onError: (error: any) => {
+                toast.error(error?.response?.data || "Couldn't log you in", {
+                    id: toastSubmitId
+                })
+                console.log(error);
+
+            }
+
+        })
 
     }
     return (
+        <main className="w-screen bg-black/5 h-screen overflow-hidden flex flex-col gap-4 items-center justify-center">
+
         <Form   {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="px-8 py-8 max-w-lg w-full space-y-5 bg-white shadow-md rounded-lg md:p-8">
                 <div className="flex flex-col gap-2 text-sm text-center">
@@ -92,8 +133,8 @@ export default function LoginForm() {
                     <Link href="/forgot-password"><p className="text-neonblue ">Forgot Password?</p></Link>
                 </div>
 
-                <Button disabled={false} className=" w-full bg-primaryy" type="submit">
-                    {false && <Loader2 className="animate-spin h-4 w-4 mr-4" />}
+                <Button disabled={loginUser.isPending} className=" w-full bg-primaryy" type="submit">
+                    {loginUser.isPending && <Loader2 className="animate-spin h-4 w-4 mr-4" />}
                     Submit
                 </Button>
 
@@ -101,5 +142,6 @@ export default function LoginForm() {
 
             </form>
         </Form>
+        </main>
     )
 }

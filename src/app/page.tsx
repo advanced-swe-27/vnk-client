@@ -21,11 +21,19 @@ export default function Home() {
           Visitor&apos;s and Key Management System
         </span>
       </p>
+      <div className='flex items-center gap-4'>
       <Link href="/help">
         <Button>
           See Dev Resources
         </Button>
       </Link>
+      <Link href="/admin">
+        <Button>
+          Go to Admin Panel
+        </Button>
+      </Link>
+
+      </div>
 
       <Alert className='absolute bottom-8 mx-auto max-w-lg'>
         <Terminal className="h-4 w-4" />

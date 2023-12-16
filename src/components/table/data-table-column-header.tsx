@@ -10,6 +10,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
+import { tableIconsMap } from "./table-icons-map"
 
 
 interface DataTableColumnHeaderProps<TData, TValue>
@@ -38,11 +39,17 @@ export function DataTableColumnHeader<TData, TValue>({
             >
               <span>{title}</span>
               {column.getIsSorted() === "desc" ? (
-                <ArrowDown className="ml-2 h-4 w-4" />
+                            <>
+                                {tableIconsMap.down}
+                            </>
               ) : column.getIsSorted() === "asc" ? (
-                <ArrowUp className="ml-2 h-4 w-4" />
+                <>
+                {tableIconsMap.up}
+            </>
               ) : (
-                <RxCaretSort className="ml-2 h-4 w-4" />
+                <>
+                {tableIconsMap.sort}
+            </>
               )}
             </Button>
           </DropdownMenuTrigger>
