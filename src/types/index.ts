@@ -155,3 +155,5 @@ export type VerifyCodeInput = SendCodeInput & {
     code: string
 }
 
+
+export type UpdateUserDetailsInput = Pick<User, "surname" | "othernames" | "phone">
