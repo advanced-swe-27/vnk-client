@@ -60,7 +60,7 @@ export default function LoginForm() {
         
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        const toastSubmitId = toast.success("Logging in")
+        const toastSubmitId = toast.loading("Logging in")
 
         loginUser.mutate(values, {
             onSuccess: (data) => {
@@ -77,7 +77,7 @@ export default function LoginForm() {
                 }
             },
             onError: (error: any) => {
-                toast.error(error?.response?.data || "Couldn't log you in", {
+                toast.error(error?.response?.data?.message || "Couldn't log you in", {
                     id: toastSubmitId
                 })
                 console.log(error);

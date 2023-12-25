@@ -1,5 +1,4 @@
 "use client"
-import UnderDevelopment from "@/components/core/under-development";
 import { residentColumns } from "@/components/table/colums";
 import { DataTable } from "@/components/table/data-table";
 import { Button } from "@/components/ui/button";
@@ -159,7 +158,7 @@ export default function ResidentsPage() {
                     </PopoverTrigger>
                     <PopoverContent className="w-full p-0">
                         <Command>
-                            <CommandInput placeholder="Search room..." />
+                            <CommandInput placeholder="Search status..." />
                             <CommandEmpty>No status found.</CommandEmpty>
                             <CommandGroup>
                                 {residentStatus?.map((item) => (

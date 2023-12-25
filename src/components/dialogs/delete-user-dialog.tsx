@@ -43,7 +43,7 @@ export default function DeleteUserDialog({ user: selectedUser }: Props) {
             toast.success("Deleted User successfully")
         },
         onError: (error: any) => {
-            toast.error(error?.response?.data || "Couldn't delete homeowner. Try again later")
+            toast.error(error?.response?.data?.message || "Couldn't delete homeowner. Try again later")
         }
     })
 

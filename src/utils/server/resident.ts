@@ -1,4 +1,4 @@
-import { ApiResponse, Resident, ResidentRes } from "@/types"
+import { ApiResponse, Resident, ResidentRes, ResidentWithRoomRes } from "@/types"
 import Axios from "../axios"
 import _ from "lodash"
 
@@ -69,7 +69,7 @@ export const GET_RESIDENTS_BY_ROOM = async (id: string, token: string) => {
 export const GET_RESIDENTS = async (token: string) => {
 
     try {
-        const response: ApiResponse<ResidentRes[]> = await Axios({
+        const response: ApiResponse<ResidentWithRoomRes[]> = await Axios({
             method: "GET",
             url: `/resident/`,
             headers: {

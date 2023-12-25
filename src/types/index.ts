@@ -65,7 +65,11 @@ export type Resident = {
     phone: string
     gender: Gender
     status: ResidentStatus
-    room: string | Room
+    room:  string
+}
+
+export type ResidentWithRoom = Resident & {
+    room: Room
 }
 
 export type Visitor = {
@@ -113,6 +117,7 @@ export type KeyLog = {
 
 export type UserRes = User & MongoResponse
 export type ResidentRes = Resident & MongoResponse
+export type ResidentWithRoomRes = ResidentWithRoom & MongoResponse
 export type VisitorRes = Visitor & MongoResponse
 export type RoomRes = Room & MongoResponse
 export type FacilityRes = Facility & MongoResponse

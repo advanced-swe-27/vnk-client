@@ -129,7 +129,7 @@ export default function ForgotPasswordForm() {
                     // }
                 },
                 onError: (error: any) => {
-                    toast.error(error?.response?.data || "Couldn't send code", {
+                    toast.error(error?.response?.data?.message || "Couldn't send code", {
                         id: toastSubmitId
                     })
                     console.log(error);
@@ -157,7 +157,7 @@ export default function ForgotPasswordForm() {
                     // }
                 },
                 onError: (error: any) => {
-                    toast.error(error?.response?.data || "Couldn't verify code", {
+                    toast.error(error?.response?.data?.message || "Couldn't verify code", {
                         id: toastSubmitId
                     })
                     console.log(error);
@@ -188,7 +188,7 @@ export default function ForgotPasswordForm() {
                     // }
                 },
                 onError: (error: any) => {
-                    toast.error(error?.response?.data || "Couldn't change password", {
+                    toast.error(error?.response?.data?.message || "Couldn't change password", {
                         id: toastSubmitId
                     })
                     console.log(error);
@@ -207,7 +207,7 @@ export default function ForgotPasswordForm() {
                             <div className="flex flex-col gap-2 text-sm text-center">
                                 <h1 className="text-3xl text-center font-medium">Forgot your password?</h1>
                                 <p className="text-neutral-500 text-xs">
-                                Enter your email address to receive an email with a verification code.
+                                    Enter your email address to receive an email with a verification code.
                                 </p>
                             </div>
                             <FormField
@@ -222,7 +222,7 @@ export default function ForgotPasswordForm() {
                                     </FormItem>
                                 )}
                             />
-                          
+
                             <div className="mt-4">
 
                                 <Link href="/" className="text-xs  text-blue-600" >
@@ -246,7 +246,7 @@ export default function ForgotPasswordForm() {
                             <div className="flex flex-col gap-2 text-sm text-center">
                                 <h1 className="text-3xl text-center font-medium">Forgot your password?</h1>
                                 <p className="text-neutral-500 text-xs">
-                                Enter the 6 digit code sent to your email address ({forgotStore?.username})
+                                    Enter the 6 digit code sent to your email address ({forgotStore?.username})
                                 </p>
                             </div>
                             <FormField
@@ -261,7 +261,7 @@ export default function ForgotPasswordForm() {
                                     </FormItem>
                                 )}
                             />
-                          
+
                             <div className="mt-4">
 
                                 <Link href="/" className="text-xs  text-blue-600" >
@@ -284,7 +284,7 @@ export default function ForgotPasswordForm() {
                             <div className="flex flex-col gap-2 text-sm text-center">
                                 <h1 className="text-3xl text-center font-medium">Update password</h1>
                                 <p className="text-neutral-500 text-xs">
-                                Hello {forgotStore?.username}, kindly enter a new password to use with your account
+                                    Hello {forgotStore?.username}, kindly enter a new password to use with your account
                                 </p>
                             </div>
                             <FormField
@@ -311,7 +311,7 @@ export default function ForgotPasswordForm() {
                                     </FormItem>
                                 )}
                             />
-                          
+
                             <div className="mt-4">
 
                                 <Link href="/" className="text-xs  text-blue-600" >
