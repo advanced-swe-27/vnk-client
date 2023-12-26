@@ -2,6 +2,7 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import * as _ from 'lodash';
+import { v4 as uuid } from 'uuid'
 
 export function getInitials(fullName: string): string {
   const names = fullName.split(' ');
@@ -21,4 +22,9 @@ export function getInitials(fullName: string): string {
  
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
+}
+
+export const getRandomID = (length?: number) => {
+  if(length) return uuid().slice(0, length)
+  return uuid().slice(0, 8)
 }

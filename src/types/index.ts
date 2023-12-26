@@ -56,7 +56,7 @@ export type User = {
 export type Resident = {
     surname: string
     othernames: string
-    dob: string
+    dob: Date
     email: string
     sid: string
     programme: string
@@ -157,3 +157,5 @@ export type VerifyCodeInput = SendCodeInput & {
 
 
 export type UpdateUserDetailsInput = Pick<User, "surname" | "othernames" | "phone">
+
+export type CreateResidentInput = Omit<Resident, "status">

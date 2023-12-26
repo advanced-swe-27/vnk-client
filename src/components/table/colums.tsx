@@ -12,6 +12,8 @@ import ViewResidentDialog from "../dialogs/view-resident-dialog"
 import ApproveResidentDialog from "../dialogs/approve-resident-dialog"
 import RejectResidentDialog from "../dialogs/reject-resident-dialog"
 import ChangeResidentRoomDialog from "../dialogs/change-resident-room-dialog"
+import ResidentStatusBadge from "../badges/resident-status-badge"
+import DeleteResidentDialog from "../dialogs/delete-resident-dialog"
 
 export const porterColumns: ColumnDef<UserRes>[] = [
     {
@@ -58,7 +60,7 @@ export const residentColumns: ColumnDef<ResidentWithRoomRes>[] = [
         ),
         cell: ({ row }) => (
             <>
-                {row.original.othernames} {row.original.surname}
+                {row.original.othernames} {row.original.surname} <ResidentStatusBadge sm status={row.original.status} />
             </>
         ),
     },
@@ -86,14 +88,14 @@ export const residentColumns: ColumnDef<ResidentWithRoomRes>[] = [
             <div className="flex items-center gap-4">
                 <ViewResidentDialog resident={row.original} />
                 {
-                    row.original.status === "pending" || row.original.status === "rejected" && <ApproveResidentDialog resident={row.original} />
+                    row.original.status !== "approved" && <ApproveResidentDialog resident={row.original} />
                 }
                 {
-                    row.original.status === "pending" || row.original.status === "approved" && <RejectResidentDialog resident={row.original} />
+                    row.original.status !== "rejected" && <RejectResidentDialog resident={row.original} />
                 }
               
                 <ChangeResidentRoomDialog resident={row.original} />
-
+                <DeleteResidentDialog resident={row.original} />
             </div>
         ),
     }

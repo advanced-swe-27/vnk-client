@@ -62,15 +62,13 @@ export const GET_ROOM_BY_ID = async (id: string, token: string) => {
 
 
 
-export const GET_ROOMS = async (token: string) => {
+export const GET_ROOMS = async () => {
 
     try {
         const response: ApiResponse<RoomRes[]> = await Axios({
             method: "GET",
             url: `/room/`,
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
+           
         })
 
         if (response.status === 200) {
