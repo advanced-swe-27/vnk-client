@@ -2,8 +2,7 @@
 // Define all the columns for all the tables here
 
 import { DataTableColumnHeader } from "./data-table-column-header"
-import { Button } from "@/components/ui/button"
-import { ResidentWithRoomRes, UserRes } from "@/types"
+import { ResidentWithRoomRes, UserRes, RoomRes } from "@/types"
 import { ColumnDef } from "@tanstack/react-table"
 import * as React from "react"
 import ViewUserDialog from "../dialogs/view-user-dialog"
@@ -12,6 +11,11 @@ import ViewResidentDialog from "../dialogs/view-resident-dialog"
 import ApproveResidentDialog from "../dialogs/approve-resident-dialog"
 import RejectResidentDialog from "../dialogs/reject-resident-dialog"
 import ChangeResidentRoomDialog from "../dialogs/change-resident-room-dialog"
+import ResidentStatusBadge from "../badges/resident-status-badge"
+import DeleteResidentDialog from "../dialogs/delete-resident-dialog"
+import ViewRoomDialog from "../dialogs/view-room-dialog"
+import { format } from "date-fns"
+import DeleteRoomDialog from "../dialogs/delete-room-dialog"
 
 export const porterColumns: ColumnDef<UserRes>[] = [
     {
@@ -58,7 +62,7 @@ export const residentColumns: ColumnDef<ResidentWithRoomRes>[] = [
         ),
         cell: ({ row }) => (
             <>
-                {row.original.othernames} {row.original.surname}
+                {row.original.othernames} {row.original.surname} <ResidentStatusBadge sm status={row.original.status} />
             </>
         ),
     },
@@ -86,14 +90,55 @@ export const residentColumns: ColumnDef<ResidentWithRoomRes>[] = [
             <div className="flex items-center gap-4">
                 <ViewResidentDialog resident={row.original} />
                 {
-                    row.original.status === "pending" || row.original.status === "rejected" && <ApproveResidentDialog resident={row.original} />
+                    row.original.status !== "approved" && <ApproveResidentDialog resident={row.original} />
                 }
                 {
-                    row.original.status === "pending" || row.original.status === "approved" && <RejectResidentDialog resident={row.original} />
+                    row.original.status !== "rejected" && <RejectResidentDialog resident={row.original} />
                 }
               
                 <ChangeResidentRoomDialog resident={row.original} />
+                <DeleteResidentDialog resident={row.original} />
+            </div>
+        ),
+    }
+]
 
+export const roomsColumns: ColumnDef<RoomRes>[] = [
+    {
+        accessorKey: "num",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Room Number" />
+        ),
+    },
+    {
+        accessorKey: "gender",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Gender" />
+        ),
+    },
+    {
+        accessorKey: "capacity",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Capacity" />
+        ),
+    },
+    {
+        accessorKey: "createdAt",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Created At" />
+        ),
+        cell: ({ row }) => (
+            <>
+                {format(new Date(row.original.createdAt), "PPPP")}
+            </>
+        ),
+    },
+    {
+        id: "actions",
+        cell: ({ row }) => (
+            <div className="flex items-center gap-4">
+                <ViewRoomDialog room={row.original} />
+                <DeleteRoomDialog room={row.original} />
             </div>
         ),
     }

@@ -2,7 +2,7 @@ import { ApiResponse, Resident, ResidentRes, ResidentWithRoomRes } from "@/types
 import Axios from "../axios"
 import _ from "lodash"
 
-type CreateResidentInput = Omit<Resident, "status">
+export type CreateResidentInput = Omit<Resident, "status">
 
 
 

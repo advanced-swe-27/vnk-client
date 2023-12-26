@@ -24,7 +24,7 @@ export type KeyStatus = "assigned" | "unassigned" | "missing" | "unknown"
 export type ResidentStatus = "pending" | "approved" | "rejected"
 
 
-export type Gender = "MALE" | "FEMALE"
+export type Gender = "MALE" | "FEMALE" 
 
 export type Level = "100" | "200" | "300" | "400" | "500" | "600" | "700"
 
@@ -56,7 +56,7 @@ export type User = {
 export type Resident = {
     surname: string
     othernames: string
-    dob: string
+    dob: Date
     email: string
     sid: string
     programme: string
@@ -157,3 +157,5 @@ export type VerifyCodeInput = SendCodeInput & {
 
 
 export type UpdateUserDetailsInput = Pick<User, "surname" | "othernames" | "phone">
+
+export type CreateResidentInput = Omit<Resident, "status">

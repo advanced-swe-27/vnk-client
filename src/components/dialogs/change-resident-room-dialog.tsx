@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import { tableIconsMap } from "../table/table-icons-map"
 import ActionTooltip from "../core/action-tooltip"
-import { ResidentWithRoomRes, UserRes } from "@/types"
+import { ResidentRes, ResidentWithRoomRes, UserRes } from "@/types"
 import RoleViewProvider from "@/providers/role-view-provider"
 import _ from "lodash"
 import { Check, Loader2, ChevronsUpDown } from "lucide-react"
@@ -55,8 +55,8 @@ export default function ChangeResidentRoomDialog({ resident }: Props) {
         queryKey: ['rooms'],
         queryFn: async () => {
             if (user && user.token) {
-                const porters = await GET_ROOMS(user.token)
-                return porters
+                const rooms = await GET_ROOMS()
+                return rooms
             }
 
         },
@@ -85,7 +85,7 @@ export default function ChangeResidentRoomDialog({ resident }: Props) {
         },
 
         onSuccess: (newData) => {
-            queryClient.setQueryData(['residents'], (oldData: UserRes[]) => {
+            queryClient.setQueryData(['residents'], (oldData: ResidentWithRoomRes[]) => {
                 const filtered = oldData ? oldData.filter((item) => item._id !== _id) : oldData
                 return [...filtered, newData]
             })

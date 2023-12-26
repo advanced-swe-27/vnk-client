@@ -1,14 +1,17 @@
-import { ApiResponse,  Room, RoomRes } from "@/types"
+import { ApiResponse, Room, RoomRes } from "@/types"
 import Axios from "../axios"
 import _ from "lodash"
 
 
-export const CREATE_ROOM = async (info: Room) => {
+export const CREATE_ROOM = async (info: Room, token: string) => {
     try {
         const response: ApiResponse<RoomRes> = await Axios({
             method: "POST",
             url: `/room/`,
             data: info,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
 
         if (response.status === 200 || response.status === 201) {
@@ -21,12 +24,15 @@ export const CREATE_ROOM = async (info: Room) => {
     }
 }
 
-export const UPDATE_ROOM = async (id: string,info: Room) => {
+export const UPDATE_ROOM = async (id: string, info: Room, token: string) => {
     try {
         const response: ApiResponse<RoomRes> = await Axios({
             method: "POST",
             url: `/room/${id}`,
             data: info,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
 
         if (response.status === 200 || response.status === 201) {
@@ -62,15 +68,11 @@ export const GET_ROOM_BY_ID = async (id: string, token: string) => {
 
 
 
-export const GET_ROOMS = async (token: string) => {
-
+export const GET_ROOMS = async () => {
     try {
         const response: ApiResponse<RoomRes[]> = await Axios({
             method: "GET",
             url: `/room/`,
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
         })
 
         if (response.status === 200) {
