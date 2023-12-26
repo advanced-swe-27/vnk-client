@@ -63,6 +63,7 @@ export const residentColumns: ColumnDef<ResidentWithRoomRes>[] = [
         cell: ({ row }) => (
             <>
                 {row.original.othernames} {row.original.surname} <ResidentStatusBadge sm status={row.original.status} />
+                {row.original.othernames} {row.original.surname} <ResidentStatusBadge sm status={row.original.status} />
             </>
         ),
     },
