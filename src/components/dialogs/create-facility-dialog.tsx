@@ -11,23 +11,24 @@ import ActionTooltip from "../core/action-tooltip"
 import RoleViewProvider from "@/providers/role-view-provider"
 import _ from "lodash"
 import { Button } from "../ui/button"
-import CreateVisitorForm from "../forms/create-visitor-form"
+import CreateRoomForm from "../forms/create-room-form"
+import CreateFacilityForm from "../forms/create-facility-form"
 
-export default function CreateVisitorDialog() {
+export default function CreateFacilityDialog() {
     return (
         <RoleViewProvider role={"SUDO"}>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button className="">
-                        New Visitor
+                    <Button className="ml-auto">
+                        New Facility
                     </Button>
 
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Create New Visitor  </DialogTitle>
+                        <DialogTitle>Create New Facility  </DialogTitle>
                     </DialogHeader>
-                    <CreateVisitorForm />
+                    <CreateFacilityForm />
                 </DialogContent>
             </Dialog>
         </RoleViewProvider>

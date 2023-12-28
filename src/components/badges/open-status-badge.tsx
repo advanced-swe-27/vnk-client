@@ -12,7 +12,6 @@ type Props = {
 }
 
 export default function OpenStatusBadge({ open, textCase, sm, alt}: Props) {
-    
     const variantsMap: ClassValue = open ? "bg-emerald-500" : "bg-purple-500"
 
     function genText(): string {

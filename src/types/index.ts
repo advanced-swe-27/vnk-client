@@ -100,12 +100,9 @@ export type Key = {
 }
 
 export type VisitLog = {
-    visitor: string | Visitor
-    checkin: Date
-    checkout: Date
-    place: string | Room | Facility
-    isVisitingResident: boolean
-    visitee?: string | Resident
+    visitor: Visitor
+    checkout: Date | null
+    room:  Room 
 }
 
 export type KeyLog = {

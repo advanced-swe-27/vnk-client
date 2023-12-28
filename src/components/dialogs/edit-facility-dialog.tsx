@@ -7,27 +7,28 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { tableIconsMap } from "../table/table-icons-map"
-import ActionTooltip from "../core/action-tooltip"
 import RoleViewProvider from "@/providers/role-view-provider"
 import _ from "lodash"
-import { Button } from "../ui/button"
-import CreateVisitorForm from "../forms/create-visitor-form"
+import { FacilityRes } from "@/types"
+import EditFacilityForm from "../forms/edit-facility-form"
 
-export default function CreateVisitorDialog() {
+type Props = {
+    facility: FacilityRes
+}
+
+export default function EditFacilityDialog({ facility }: Props) {
+
     return (
         <RoleViewProvider role={"SUDO"}>
             <Dialog>
-                <DialogTrigger asChild>
-                    <Button className="">
-                        New Visitor
-                    </Button>
-
+                <DialogTrigger>
+                    {tableIconsMap.edit}
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Create New Visitor  </DialogTitle>
+                        <DialogTitle>Edit This Facility?  </DialogTitle>
                     </DialogHeader>
-                    <CreateVisitorForm />
+                    <EditFacilityForm facility={facility} />
                 </DialogContent>
             </Dialog>
         </RoleViewProvider>

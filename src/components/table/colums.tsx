@@ -2,7 +2,7 @@
 // Define all the columns for all the tables here
 
 import { DataTableColumnHeader } from "./data-table-column-header"
-import { ResidentWithRoomRes, UserRes, RoomRes, KeyLogRes, VisitorRes } from "@/types"
+import { ResidentWithRoomRes, UserRes, RoomRes, KeyLogRes, VisitorRes, FacilityRes, VisitLogRes } from "@/types"
 import { ColumnDef } from "@tanstack/react-table"
 import * as React from "react"
 import ViewUserDialog from "../dialogs/view-user-dialog"
@@ -23,6 +23,13 @@ import CloseKeyLogDialog from "../dialogs/close-key-log-dialog"
 import FlagStatusBadge from "../badges/flag-status-badge"
 import ViewVisitorDialog from "../dialogs/view-visitor-dialog"
 import DeleteVisitorDialog from "../dialogs/delete-visitor-dialog"
+import ViewFacilityDialog from "../dialogs/view-facility-dialog"
+import EditFacilityForm from "../forms/edit-facility-form"
+import EditFacilityDialog from "../dialogs/edit-facility-dialog"
+import DeleteFacilityDialog from "../dialogs/delete-facility-dialog"
+import ViewVisitLogDialog from "../dialogs/view-visit-log-dialog"
+import CloseVisitLogDialog from "../dialogs/close-visit-log-dialog"
+import DeleteVisitLogDialog from "../dialogs/delete-visit-log-dialog"
 
 export const porterColumns: ColumnDef<UserRes>[] = [
     {
@@ -261,16 +268,99 @@ export const visitorColumns: ColumnDef<VisitorRes>[] = [
             <div className="flex items-center gap-4">
                 <ViewVisitorDialog visitor={row.original} />
                 <DeleteVisitorDialog visitor={row.original} />
-                {/* 
-                {
-                    row.original.status !== "approved" && <ApproveResidentDialog resident={row.original} />
-                }
-                {
-                    row.original.status !== "rejected" && <RejectResidentDialog resident={row.original} />
-                }
-              
-                <ChangeResidentRoomDialog resident={row.original} />
-                <DeleteResidentDialog resident={row.original} /> */}
+                
+            </div>
+        ),
+    }
+]
+
+
+export const facilityColumns: ColumnDef<FacilityRes>[] = [
+    {
+        accessorKey: "name",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Name" />
+        ),
+    },
+    {
+        accessorKey: "description",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Description" />
+        ),
+        cell: ({ row }) => (
+            <>
+                    {row.original.description.slice(0,100)} ...              
+            </>
+        ),
+    },
+    
+    {
+        id: "actions",
+        cell: ({ row }) => (
+            <div className="flex items-center gap-4">
+                <ViewFacilityDialog facility={row.original} />
+                <EditFacilityDialog facility={row.original} />
+                <DeleteFacilityDialog facility={row.original} />
+            </div>
+        ),
+    }
+]
+
+export const visitLogColumns: ColumnDef<VisitLogRes>[] = [
+    {
+        accessorKey: "room",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Room Number" />
+        ),
+        cell: ({ row }) => (
+            <>
+                { row.original.room?.num}  <OpenStatusBadge textCase="uppercase" sm alt open={row.original.checkout === null ? true : false} />
+            </>
+        ),
+    },
+    {
+        id: "visitor-name",
+        accessorKey: "visitor",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Visitor Name" />
+        ),
+        cell: ({ row }) => (
+            <>
+                { row.original.visitor?.othernames} { row.original.visitor?.surname}
+            </>
+        ),
+    },
+    {
+        id: "visitor-email",
+        accessorKey: "visitor",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Visitor Email" />
+        ),
+        cell: ({ row }) => (
+            <>
+                { row.original.visitor?.email}
+            </>
+        ),
+    },
+    {
+        id: "visitor-phone",
+        accessorKey: "visitor",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Visitor Phone" />
+        ),
+        cell: ({ row }) => (
+            <>
+                { row.original.visitor?.phone}
+            </>
+        ),
+    },
+    {
+        id: "actions",
+        cell: ({ row }) => (
+            <div className="flex items-center gap-4">
+                <ViewVisitLogDialog log={row.original} />
+                <CloseVisitLogDialog log={row.original} />
+                <DeleteVisitLogDialog log={row.original} />
             </div>
         ),
     }

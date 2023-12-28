@@ -1,1 +1,0 @@
-// All static and resuable data that will be mapped through will be stored in this folder and referenced from this file
