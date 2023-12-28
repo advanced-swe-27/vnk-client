@@ -21,6 +21,8 @@ import ViewKeyLogDialog from "../dialogs/view-key-log-dialog"
 import DeleteKeyLogDialog from "../dialogs/delete-key-log-dialog"
 import CloseKeyLogDialog from "../dialogs/close-key-log-dialog"
 import FlagStatusBadge from "../badges/flag-status-badge"
+import ViewVisitorDialog from "../dialogs/view-visitor-dialog"
+import DeleteVisitorDialog from "../dialogs/delete-visitor-dialog"
 
 export const porterColumns: ColumnDef<UserRes>[] = [
     {
@@ -219,7 +221,7 @@ export const visitorColumns: ColumnDef<VisitorRes>[] = [
         ),
         cell: ({ row }) => (
             <>
-                {row.original.othernames} {row.original.surname} <FlagStatusBadge  flag={row.original.flagged} />
+                {row.original.othernames} {row.original.surname} <FlagStatusBadge sm flag={row.original.flagged} />
             </>
         ),
     },
@@ -227,6 +229,18 @@ export const visitorColumns: ColumnDef<VisitorRes>[] = [
         accessorKey: "sid",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Student ID" />
+        ),
+        cell: ({ row }) => (
+            <>
+                {
+                    row.original.sid ? <>
+                     {row.original.sid}
+                    </> : <>
+                    Not A Student
+                        </>
+                }
+              
+            </>
         ),
     },
     {
@@ -245,7 +259,9 @@ export const visitorColumns: ColumnDef<VisitorRes>[] = [
         id: "actions",
         cell: ({ row }) => (
             <div className="flex items-center gap-4">
-                {/* <ViewResidentDialog resident={row.original} />
+                <ViewVisitorDialog visitor={row.original} />
+                <DeleteVisitorDialog visitor={row.original} />
+                {/* 
                 {
                     row.original.status !== "approved" && <ApproveResidentDialog resident={row.original} />
                 }
