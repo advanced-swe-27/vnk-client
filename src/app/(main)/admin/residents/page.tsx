@@ -75,8 +75,8 @@ export default function ResidentsPage() {
         queryKey: ['rooms'],
         queryFn: async () => {
             if (user && user.token) {
-                const porters = await GET_ROOMS(user.token)
-                return porters
+                const rooms = await GET_ROOMS()
+                return rooms
             }
 
         },
@@ -233,7 +233,7 @@ export default function ResidentsPage() {
                         <DataTable
                             filterableCol="sid"
                             columns={residentColumns}
-                            data={allResidentsQuery.data} title="residents" />
+                            data={allResidentsQuery.data} title="key logs" />
                 }
             </>
         </div>

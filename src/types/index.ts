@@ -24,7 +24,7 @@ export type KeyStatus = "assigned" | "unassigned" | "missing" | "unknown"
 export type ResidentStatus = "pending" | "approved" | "rejected"
 
 
-export type Gender = "MALE" | "FEMALE" 
+export type Gender = "MALE" | "FEMALE"
 
 export type Level = "100" | "200" | "300" | "400" | "500" | "600" | "700"
 
@@ -65,7 +65,7 @@ export type Resident = {
     phone: string
     gender: Gender
     status: ResidentStatus
-    room:  string
+    room: string
 }
 
 export type ResidentWithRoom = Resident & {
@@ -109,11 +109,12 @@ export type VisitLog = {
 }
 
 export type KeyLog = {
-    resident: string | Resident
-    checkin: Date
-    checkout: Date
-    room: string | Room
+    closedBy?:  Resident
+    openedBy:  Resident
+    closedAt?: Date
+    room:  RoomRes
 }
+
 
 export type UserRes = User & MongoResponse
 export type ResidentRes = Resident & MongoResponse
@@ -159,3 +160,13 @@ export type VerifyCodeInput = SendCodeInput & {
 export type UpdateUserDetailsInput = Pick<User, "surname" | "othernames" | "phone">
 
 export type CreateResidentInput = Omit<Resident, "status">
+
+export type OpenKeyLogInput = {
+    openedBy: string,
+    room: string
+}
+
+export type CloseKeyLogInput = {
+    closedBy: string
+}
+

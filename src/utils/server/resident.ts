@@ -48,7 +48,7 @@ export const GET_RESIDENT_BY_ID = async (id: string, token: string) => {
 export const GET_RESIDENTS_BY_ROOM = async (id: string, token: string) => {
 
     try {
-        const response: ApiResponse<ResidentRes[]> = await Axios({
+        const response: ApiResponse<ResidentWithRoomRes[]> = await Axios({
             method: "GET",
             url: `/resident/room/${id}`,
             headers: {
@@ -72,6 +72,27 @@ export const GET_RESIDENTS = async (token: string) => {
         const response: ApiResponse<ResidentWithRoomRes[]> = await Axios({
             method: "GET",
             url: `/resident/`,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        if (response.status === 200) {
+            return response.data.data
+        } else {
+            throw new Error("oops")
+        }
+    } catch (error) {
+        throw error
+    }
+}
+
+export const GET_ACCEPTED_RESIDENTS = async (token: string) => {
+
+    try {
+        const response: ApiResponse<ResidentWithRoomRes[]> = await Axios({
+            method: "GET",
+            url: `/resident/accepted`,
             headers: {
                 Authorization: `Bearer ${token}`
             }

@@ -1,6 +1,6 @@
 "use client"
 import RoleViewProvider from "@/providers/role-view-provider";
-import { porterColumns, roomsColumns } from "@/components/table/colums";
+import {  roomsColumns } from "@/components/table/colums";
 import { DataTable } from "@/components/table/data-table";
 import { Button } from "@/components/ui/button";
 import { useLocalStorage } from "react-use";
@@ -9,7 +9,6 @@ import { useQuery } from "@tanstack/react-query"
 import CustomLoader from "@/components/loaders/custom-loader";
 import { GET_ROOMS } from "@/utils/server/room";
 import CustomError from "@/components/core/custom-error";
-import CreateUserDialog from "@/components/dialogs/create-user-dialog";
 import CreateRoomDialog from "@/components/dialogs/create-room-dialog";
 
 export default function PortersPage() {

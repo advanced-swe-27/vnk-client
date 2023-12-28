@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog"
 import { tableIconsMap } from "../table/table-icons-map"
 import ActionTooltip from "../core/action-tooltip"
-import { ResidentWithRoomRes, RoomRes, UserRes } from "@/types"
+import {  KeyLogRes, UserRes } from "@/types"
 import RoleViewProvider from "@/providers/role-view-provider"
 import _ from "lodash"
 import { Loader2 } from "lucide-react"
@@ -16,14 +16,13 @@ import { Button } from "../ui/button"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useLocalStorage } from "react-use";
 import toast from "react-hot-toast"
-import { DELETE_ROOM } from "@/utils/server/room"
-
+import { DELETE_KEY_LOG } from "@/utils/server/key-log"
 type Props = {
-    room: RoomRes
+    log: KeyLogRes
 }
 
-export default function DeleteRoomDialog({ room }: Props) {
-    const { _id, createdAt, capacity, gender, num, updatedAt } = room
+export default function DeleteKeyLogDialog({ log }: Props) {
+    const { _id, createdAt, updatedAt, openedBy, room, closedAt, closedBy } = log
 
 
     const queryClient = useQueryClient()
@@ -32,20 +31,21 @@ export default function DeleteRoomDialog({ room }: Props) {
     const approveResident = useMutation({
         mutationFn: () => {
             if (user && user.token) {
-                return DELETE_ROOM(_id, user.token)
+                return DELETE_KEY_LOG(_id, user.token)
             }
             throw new Error("Please login again")
         },
 
         onSuccess: (newData) => {
-            queryClient.setQueryData(['rooms'], (oldData: RoomRes[]) => {
+            queryClient.setQueryData(['key-logs'], (oldData: KeyLogRes[]) => {
                 const filtered = oldData ? oldData.filter((item) => item._id !== _id) : oldData
                 return [...filtered, newData]
             })
-            toast.success("Deleted room successfully")
+            toast.success("Deleted log successfully")
         },
         onError: (error: any) => {
-            toast.error(error?.response?.data?.message || "Couldn't delete room. Try again later")
+            console.log(error)
+            toast.error(error?.response?.data?.message || "Couldn't delete key log. Try again later")
         }
     })
 
@@ -53,28 +53,26 @@ export default function DeleteRoomDialog({ room }: Props) {
         approveResident.mutate(undefined)
     }
     return (
-        <RoleViewProvider role="SUDO">
             <Dialog>
-                <ActionTooltip label={`Delete Room`}>
+                <ActionTooltip label={`Delete Key Log`}>
                     <DialogTrigger>
                         {tableIconsMap.delete}
                     </DialogTrigger>
                 </ActionTooltip>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Delete This Room?</DialogTitle>
+                        <DialogTitle>Delete This Key Log?</DialogTitle>
                         <DialogDescription>
-                            Are you sure you want to delete room <span className="font-medium text-neutral-500"> {num}</span> This action can not be undone and all data pertaining to this room will be permanently removed from our servers
+                            Are you sure you want to delete this key log. This action can not be undone and all data pertaining to this log will be permanently removed from our servers
                         </DialogDescription>
                     </DialogHeader>
                     <Button disabled={approveResident.isPending} onClick={onSubmit} variant="destructive" >
                         {approveResident.isPending && <Loader2 className="animate-spin h-4 w-4 mr-4" />}
-                        Delete Room
+                        Delete Log
                     </Button>
 
                 </DialogContent>
             </Dialog>
-        </RoleViewProvider>
 
     )
 }

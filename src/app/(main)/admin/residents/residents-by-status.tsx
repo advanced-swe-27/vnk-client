@@ -2,11 +2,11 @@
 import { residentColumns } from "@/components/table/colums";
 import { DataTable } from "@/components/table/data-table";
 import { Button } from "@/components/ui/button";
-import {  ResidentRes, } from '@/types';
+import {  ResidentRes, ResidentWithRoomRes, } from '@/types';
 import { useSearchParams,  usePathname } from 'next/navigation'
 import Link from "next/link";
 
-export default function ResidentsByStatus({data}: {data: ResidentRes[]}) {
+export default function ResidentsByStatus({data}: {data: ResidentWithRoomRes[]}) {
     const pathname = usePathname()
     const searchParams = useSearchParams()!
 
