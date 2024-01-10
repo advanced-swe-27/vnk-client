@@ -244,9 +244,9 @@ export default function ForgotPasswordForm() {
                     <Form {...forms.verifyCode}>
                         <form onSubmit={forms.verifyCode.handleSubmit(submitFunctions.verifyCode)} className="max-w-lg w-full space-y-4 bg-white shadow-md rounded-lg p-4 sm:p-8">
                             <div className="flex flex-col gap-2 text-sm text-center">
-                                <h1 className="text-3xl text-center font-medium">Forgot your password?</h1>
+                                <h1 className="text-3xl text-center font-medium">We just sent a code!</h1>
                                 <p className="text-neutral-500 text-xs">
-                                    Enter the 6 digit code sent to your email address ({forgotStore?.username})
+                                    Enter the 6 digit code sent to your email address ({forgotStore?.username}) . If you can not find the email, check your spam.  <br />
                                 </p>
                             </div>
                             <FormField
@@ -255,7 +255,7 @@ export default function ForgotPasswordForm() {
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
-                                            <Input className="text-black outline-0 focus:ring-0 focus-visible:ring-offset-0 " disabled={mutations.verifyCode.isPending} placeholder="Email" {...field} />
+                                            <Input className="text-black outline-0 focus:ring-0 focus-visible:ring-offset-0 " disabled={mutations.verifyCode.isPending} placeholder="Code" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
