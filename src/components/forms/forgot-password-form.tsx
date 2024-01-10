@@ -246,7 +246,7 @@ export default function ForgotPasswordForm() {
                             <div className="flex flex-col gap-2 text-sm text-center">
                                 <h1 className="text-3xl text-center font-medium">We just sent a code!</h1>
                                 <p className="text-neutral-500 text-xs">
-                                    Enter the 6 digit code sent to your email address ({forgotStore?.username}) . If you can not find the email, check your spam.  <br />
+                                    Enter the 6 digit code sent to your email address ({forgotStore?.username}) . If you can not find the email, check your spam.  <br /> If you enter a wrong code, a new one will be sent to your email
                                 </p>
                             </div>
                             <FormField
