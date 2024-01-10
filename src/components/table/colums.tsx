@@ -213,7 +213,10 @@ export const keyLogColumns: ColumnDef<KeyLogRes>[] = [
         cell: ({ row }) => (
             <div className="flex items-center gap-4">
                 <ViewKeyLogDialog log={row.original} />
+                {
+                   !!!row.original.closedBy && 
                 <CloseKeyLogDialog log={row.original} />
+                }
                 <DeleteKeyLogDialog log={row.original} />
             </div>
         ),

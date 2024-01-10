@@ -15,7 +15,7 @@ import CreateVisitorForm from "../forms/create-visitor-form"
 
 export default function CreateVisitorDialog() {
     return (
-        <RoleViewProvider role={"SUDO"}>
+        // <RoleViewProvider role={"SUDO"}>
             <Dialog>
                 <DialogTrigger asChild>
                     <Button className="">
@@ -30,6 +30,6 @@ export default function CreateVisitorDialog() {
                     <CreateVisitorForm />
                 </DialogContent>
             </Dialog>
-        </RoleViewProvider>
+        // </RoleViewProvider>
     )
 }

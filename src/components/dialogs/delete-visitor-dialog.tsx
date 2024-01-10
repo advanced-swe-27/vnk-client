@@ -52,7 +52,7 @@ export default function DeleteVisitorDialog({ visitor }: Props) {
         approveVisitor.mutate(undefined)
     }
     return (
-        <RoleViewProvider role="SUDO">
+        // <RoleViewProvider role="SUDO">
             <Dialog>
                 <ActionTooltip label={`Delete Visitor`}>
                     <DialogTrigger>
@@ -73,7 +73,7 @@ export default function DeleteVisitorDialog({ visitor }: Props) {
 
                 </DialogContent>
             </Dialog>
-        </RoleViewProvider>
+        // </RoleViewProvider>
 
     )
 }
